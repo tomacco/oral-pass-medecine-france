@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Oraux PASS/L.AS | Oral Exam Prep Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Playfair+Display:wght@700;900&display=swap');
+
+  :root {
+    --coral: #E8573A;
+    --coral-light: #F4A08E;
+    --navy: #1A2744;
+    --navy-light: #2D4A7A;
+    --teal: #2A9D8F;
+    --cream: #FDF6EC;
+    --cream-dark: #F0E6D3;
+    --grain-opacity: 0.04;
+    --card-radius: 6px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+  }
+
+  /* Typography */
+  h1, h2, h3 { font-family: 'Playfair Display', serif; }
+  .mono { font-family: 'Space Mono', monospace; }
+
+  /* Language toggle */
+  .lang-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    border: 2px solid var(--navy);
+    border-radius: 30px;
+    overflow: hidden;
+    background: var(--cream);
+    box-shadow: 3px 3px 0 var(--navy);
+  }
+  .lang-toggle button {
+    padding: 8px 18px;
+    border: none;
+    background: transparent;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--navy);
+    transition: all 0.2s;
+  }
+  .lang-toggle button.active {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  /* Hide/show language */
+  [data-en] { display: none; }
+  body.en [data-en] { display: initial; }
+  body.en [data-fr] { display: none; }
+
+  .fr { display: block; }
+  .en { display: none; }
+  body.en .fr { display: none; }
+  body.en .en { display: block; }
+
+  .fr-inline { display: inline; }
+  .en-inline { display: none; }
+  body.en .fr-inline { display: none; }
+  body.en .en-inline { display: inline; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: var(--coral);
+    border-radius: 50%;
+    top: -150px; right: -100px;
+    opacity: 0.15;
+    mix-blend-mode: multiply;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: var(--navy);
+    border-radius: 50%;
+    bottom: -100px; left: -80px;
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 span {
+    color: var(--coral);
+    display: block;
+  }
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.85rem, 2vw, 1.1rem);
+    color: var(--navy-light);
+    max-width: 600px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .hero-badges {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 30px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge.coral { background: var(--coral); }
+  .badge.teal { background: var(--teal); }
+
+  /* Nav dots */
+  .side-nav {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .side-nav a {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--navy);
+    opacity: 0.2;
+    transition: all 0.3s;
+    display: block;
+  }
+  .side-nav a:hover, .side-nav a.active {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+  @media (max-width: 768px) {
+    .side-nav { display: none; }
+  }
+
+  /* Section layout */
+  section {
+    padding: 80px 20px;
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+  section h2 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: var(--navy);
+  }
+  section h2 span { color: var(--coral); }
+  .section-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    color: var(--navy-light);
+    margin-bottom: 40px;
+    max-width: 700px;
+  }
+
+  /* Divider shapes */
+  .divider {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  .divider-circle {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+  }
+
+  /* Cards */
+  .card {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: var(--card-radius);
+    padding: 28px;
+    box-shadow: 4px 4px 0 var(--navy);
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--navy); }
+  .card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--navy);
+  }
+  .card p, .card li {
+    font-size: 0.95rem;
+    color: var(--navy);
+    opacity: 0.85;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card-coral { border-color: var(--coral); box-shadow: 4px 4px 0 var(--coral); }
+  .card-coral:hover { box-shadow: 6px 6px 0 var(--coral); }
+  .card-teal { border-color: var(--teal); box-shadow: 4px 4px 0 var(--teal); }
+  .card-teal:hover { box-shadow: 6px 6px 0 var(--teal); }
+
+  /* Exam comparison */
+  .exam-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 30px 0;
+  }
+  @media (max-width: 700px) {
+    .exam-grid { grid-template-columns: 1fr; }
+  }
+  .exam-card {
+    background: white;
+    border: 3px solid var(--navy);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: 5px 5px 0 var(--navy);
+  }
+  .exam-card-header {
+    padding: 20px 24px;
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+  }
+  .exam-card:nth-child(1) .exam-card-header { background: var(--coral); }
+  .exam-card:nth-child(2) .exam-card-header { background: var(--teal); }
+  .exam-card-body { padding: 24px; }
+  .exam-card-body h3 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+  .time-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--cream-dark);
+  }
+  .time-block:last-child { border-bottom: none; }
+  .time-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--coral);
+    min-width: 60px;
+  }
+  .exam-card:nth-child(2) .time-num { color: var(--teal); }
+  .time-label {
+    font-size: 0.9rem;
+    color: var(--navy);
+    opacity: 0.8;
+  }
+
+  /* Competencies */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+    margin: 30px 0;
+  }
+  .comp-item {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: var(--card-radius);
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 3px 3px 0 var(--navy);
+    transition: all 0.2s;
+  }
+  .comp-item:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--navy);}
+  .comp-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .comp-icon.c1 { background: var(--coral); opacity: 0.2; }
+  .comp-item:nth-child(1) .comp-icon { background: rgba(232,87,58,0.15); }
+  .comp-item:nth-child(2) .comp-icon { background: rgba(42,157,143,0.15); }
+  .comp-item:nth-child(3) .comp-icon { background: rgba(26,39,68,0.12); }
+  .comp-item:nth-child(4) .comp-icon { background: rgba(232,87,58,0.15); }
+  .comp-item:nth-child(5) .comp-icon { background: rgba(42,157,143,0.15); }
+  .comp-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Jury section */
+  .jury-pattern {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 30px 0;
+  }
+  @media (max-width: 600px) {
+    .jury-pattern { grid-template-columns: 1fr; }
+  }
+  .jury-member {
+    text-align: center;
+    padding: 24px 16px;
+    border-radius: var(--card-radius);
+    border: 2px solid;
+  }
+  .jury-member:nth-child(1) {
+    background: rgba(232,87,58,0.08);
+    border-color: var(--coral);
+    box-shadow: 3px 3px 0 var(--coral);
+  }
+  .jury-member:nth-child(2),
+  .jury-member:nth-child(3) {
+    background: rgba(42,157,143,0.06);
+    border-color: var(--teal);
+    box-shadow: 3px 3px 0 var(--teal);
+  }
+  .jury-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  .jury-avatar {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .jury-member:nth-child(1) .jury-avatar { background: rgba(232,87,58,0.2); }
+  .jury-member:nth-child(2) .jury-avatar,
+  .jury-member:nth-child(3) .jury-avatar { background: rgba(42,157,143,0.15); }
+
+  /* Strategy callout */
+  .callout {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 28px 32px;
+    border-radius: var(--card-radius);
+    margin: 30px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    background: var(--coral);
+    border-radius: 50%;
+    top: -100px; right: -60px;
+    opacity: 0.15;
+    mix-blend-mode: screen;
+  }
+  .callout h3 {
+    color: var(--coral-light);
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .callout p, .callout li {
+    color: var(--cream);
+    opacity: 0.9;
+    font-size: 0.95rem;
+    position: relative;
+  }
+  .callout ul { padding-left: 20px; }
+  .callout li { margin-bottom: 6px; }
+
+  /* Blueprint section */
+  .blueprint {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: var(--card-radius);
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 4px 4px 0 var(--navy);
+  }
+  .blueprint-header {
+    padding: 18px 24px;
+    background: var(--navy);
+    color: var(--cream);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .blueprint-header h3 {
+    color: var(--cream);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .blueprint-header .trigger-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    background: var(--coral);
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .blueprint-toggle {
+    font-size: 1.4rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .blueprint.open .blueprint-toggle { transform: rotate(45deg); }
+  .blueprint-body {
+    display: none;
+    padding: 24px;
+  }
+  .blueprint.open .blueprint-body { display: block; }
+
+  .flow-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+  }
+  .flow-step {
+    padding: 8px 16px;
+    border: 2px solid var(--navy);
+    border-radius: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    position: relative;
+  }
+  .flow-step::after {
+    content: '\2192';
+    position: absolute;
+    right: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--coral);
+    font-size: 16px;
+  }
+  .flow-step:last-child::after { display: none; }
+
+  .example-box {
+    background: rgba(232,87,58,0.06);
+    border-left: 4px solid var(--coral);
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-radius: 0 var(--card-radius) var(--card-radius) 0;
+    font-size: 0.9rem;
+  }
+  .example-box strong { color: var(--coral); }
+
+  .trap-box {
+    background: rgba(26,39,68,0.05);
+    border-left: 4px solid var(--navy);
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-radius: 0 var(--card-radius) var(--card-radius) 0;
+    font-size: 0.9rem;
+  }
+
+  .practice-prompts {
+    margin: 16px 0;
+    padding: 0;
+    list-style: none;
+  }
+  .practice-prompts li {
+    padding: 10px 16px;
+    margin-bottom: 8px;
+    background: rgba(42,157,143,0.08);
+    border-radius: var(--card-radius);
+    font-size: 0.9rem;
+    border: 1px solid rgba(42,157,143,0.2);
+  }
+  .practice-prompts li::before {
+    content: '\25B6';
+    margin-right: 8px;
+    color: var(--teal);
+    font-size: 10px;
+  }
+
+  /* Phase guide */
+  .phase-timeline {
+    position: relative;
+    padding-left: 40px;
+    margin: 30px 0;
+  }
+  .phase-timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--navy);
+    opacity: 0.15;
+  }
+  .phase {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  .phase-dot {
+    position: absolute;
+    left: -34px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--coral);
+    background: var(--cream);
+  }
+  .phase h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .phase-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--coral);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: inline-block;
+    background: rgba(232,87,58,0.1);
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+
+  /* Hot topics */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 30px 0;
+  }
+  @media (max-width: 700px) {
+    .topics-grid { grid-template-columns: 1fr; }
+  }
+  .topic-card {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    box-shadow: 3px 3px 0 var(--navy);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .topic-card:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--navy); }
+  .topic-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .tag-health { background: rgba(232,87,58,0.15); color: var(--coral); }
+  .tag-society { background: rgba(42,157,143,0.15); color: var(--teal); }
+  .tag-tech { background: rgba(26,39,68,0.12); color: var(--navy); }
+  .topic-card h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .topic-card p { font-size: 0.85rem; opacity: 0.8; margin-bottom: 10px; }
+  .topic-questions {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--cream-dark);
+  }
+  .topic-card.open .topic-questions { display: block; }
+  .topic-questions li {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: var(--navy-light);
+  }
+
+  /* Day-of tips */
+  .tip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 30px 0;
+  }
+
+  /* Timer */
+  .timer-section {
+    text-align: center;
+    margin: 40px 0;
+  }
+  .timer-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+  .timer-tab {
+    padding: 10px 24px;
+    border: 2px solid var(--navy);
+    border-radius: 30px;
+    background: transparent;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--navy);
+  }
+  .timer-tab.active {
+    background: var(--navy);
+    color: var(--cream);
+  }
+  .timer-display {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 700;
+    color: var(--navy);
+    margin: 20px 0;
+    letter-spacing: 4px;
+  }
+  .timer-phase {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    color: var(--coral);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    min-height: 20px;
+  }
+  .timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .timer-btn {
+    padding: 14px 32px;
+    border: 2px solid var(--navy);
+    border-radius: 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .btn-start { background: var(--coral); color: var(--cream); border-color: var(--coral); }
+  .btn-start:hover { background: var(--navy); border-color: var(--navy); }
+  .btn-reset { background: transparent; color: var(--navy); }
+  .btn-reset:hover { background: var(--navy); color: var(--cream); }
+
+  .timer-progress {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin: 20px 0;
+  }
+  .progress-segment {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--cream-dark);
+    transition: background 0.3s;
+  }
+  .progress-segment.active { background: var(--coral); }
+  .progress-segment.done { background: var(--teal); }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  .checklist li {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: var(--card-radius);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 2px 2px 0 var(--navy);
+  }
+  .checklist li:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--navy); }
+  .checklist li.checked {
+    opacity: 0.5;
+    text-decoration: line-through;
+    background: var(--cream-dark);
+  }
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--navy);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .checklist li.checked .check-box { background: var(--teal); border-color: var(--teal); color: white; }
+
+  /* Resources */
+  .resource-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .resource-link {
+    padding: 16px;
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: var(--card-radius);
+    text-decoration: none;
+    color: var(--navy);
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 3px 3px 0 var(--navy);
+    transition: all 0.2s;
+    display: block;
+  }
+  .resource-link:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--navy); }
+  .resource-link span {
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  /* Riso decorative shapes */
+  .riso-shape {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Scroll animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 60px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--navy-light);
+    opacity: 0.6;
+  }
+
+  /* Reading method accordion */
+  .method-accordion {
+    margin: 20px 0;
+  }
+  .method-item {
+    border: 2px solid var(--navy);
+    border-radius: var(--card-radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 3px 3px 0 var(--navy);
+  }
+  .method-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .method-header:hover { background: var(--cream-dark); }
+  .method-body {
+    display: none;
+    padding: 0 20px 20px;
+    background: white;
+    font-size: 0.9rem;
+  }
+  .method-item.open .method-body { display: block; }
+  .method-toggle {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+  }
+  .method-item.open .method-toggle { transform: rotate(45deg); }
+</style>
+</head>
+<body>
+
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- Side Nav -->
+<nav class="side-nav" id="sideNav">
+  <a href="#hero" title="Top"></a>
+  <a href="#overview" title="Overview"></a>
+  <a href="#jury" title="Jury"></a>
+  <a href="#blueprints" title="Blueprints"></a>
+  <a href="#epreuve1" title="Epreuve 1"></a>
+  <a href="#epreuve2" title="Epreuve 2"></a>
+  <a href="#topics" title="Hot Topics"></a>
+  <a href="#jourj" title="Jour J"></a>
+  <a href="#training" title="Training"></a>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="hero" id="hero">
+  <h1>
+    <span class="fr-inline">Oraux</span><span class="en-inline">Oral</span>
+    PASS/L.AS
+    <span>
+      <span class="fr-inline">Guide de survie</span>
+      <span class="en-inline">Survival Guide</span>
+    </span>
+  </h1>
+  <p class="hero-sub">
+    <span class="fr-inline">Tout ce qu'il faut savoir pour affronter les epreuves orales du second groupe. Methode, blueprints, sujets chauds et entrainement.</span>
+    <span class="en-inline">Everything you need to face the second group oral exams. Method, blueprints, hot topics and training.</span>
+  </p>
+  <div class="hero-badges">
+    <div class="badge coral">
+      <span class="fr-inline">2 epreuves</span>
+      <span class="en-inline">2 exams</span>
+    </div>
+    <div class="badge">
+      <span class="fr-inline">10 min chacune</span>
+      <span class="en-inline">10 min each</span>
+    </div>
+    <div class="badge teal">2025-2026</div>
+  </div>
+</header>
+
+<!-- ========== 1. OVERVIEW ========== -->
+<section id="overview" class="fade-in">
+  <h2>
+    <span class="fr-inline">Vue <span>d'ensemble</span></span>
+    <span class="en-inline"><span>Overview</span></span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">Les oraux sont le second groupe d'epreuves. Ils evaluent des competences transversales, pas des connaissances scientifiques.</span>
+    <span class="en-inline">The oral exams are the second group of tests. They evaluate cross-cutting skills, not scientific knowledge.</span>
+  </p>
+
+  <div class="exam-grid">
+    <!-- Exam 1 -->
+    <div class="exam-card">
+      <div class="exam-card-header">
+        <span class="fr-inline">Epreuve 1</span>
+        <span class="en-inline">Exam 1</span>
+      </div>
+      <div class="exam-card-body">
+        <h3>
+          <span class="fr-inline">Problematique complexe</span>
+          <span class="en-inline">Complex scenario</span>
+        </h3>
+        <div class="time-block">
+          <div class="time-num">2'</div>
+          <div class="time-label">
+            <span class="fr-inline">Reflexion — lire le sujet, poser les mots cles sur le brouillon</span>
+            <span class="en-inline">Reflection — read the topic, jot key words on scratch paper</span>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-num">3'</div>
+          <div class="time-label">
+            <span class="fr-inline">Presentation orale — votre analyse et reaction face a la situation</span>
+            <span class="en-inline">Oral presentation — your analysis and reaction to the situation</span>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-num">7'</div>
+          <div class="time-label">
+            <span class="fr-inline">Discussion avec le jury — questions, debat, approfondissement</span>
+            <span class="en-inline">Discussion with the jury — questions, debate, deeper exploration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Exam 2 -->
+    <div class="exam-card">
+      <div class="exam-card-header">
+        <span class="fr-inline">Epreuve 2</span>
+        <span class="en-inline">Exam 2</span>
+      </div>
+      <div class="exam-card-body">
+        <h3>
+          <span class="fr-inline">Analyse de document</span>
+          <span class="en-inline">Document analysis</span>
+        </h3>
+        <div class="time-block">
+          <div class="time-num">30'</div>
+          <div class="time-label">
+            <span class="fr-inline">Preparation — lire, analyser, organiser le brouillon</span>
+            <span class="en-inline">Preparation — read, analyze, organize your notes</span>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-num">3'</div>
+          <div class="time-label">
+            <span class="fr-inline">Presentation orale — synthese structuree du document</span>
+            <span class="en-inline">Oral presentation — structured synthesis of the document</span>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-num">7'</div>
+          <div class="time-label">
+            <span class="fr-inline">Questions du jury — sur le document, vos connaissances, votre reflexion</span>
+            <span class="en-inline">Jury questions — about the document, your knowledge, your reasoning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competencies -->
+  <h3 style="margin-bottom: 4px;">
+    <span class="fr-inline">Les 5 competences evaluees</span>
+    <span class="en-inline">The 5 evaluated competencies</span>
+  </h3>
+  <p class="section-sub" style="margin-bottom: 16px;">
+    <span class="fr-inline">Le jury cherche a voir QUI tu es, pas ce que tu sais.</span>
+    <span class="en-inline">The jury wants to see WHO you are, not what you know.</span>
+  </p>
+  <div class="comp-grid">
+    <div class="comp-item">
+      <div class="comp-icon">&#9829;</div>
+      <div class="comp-name">
+        <span class="fr-inline">Empathie</span>
+        <span class="en-inline">Empathy</span>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-icon">&#9998;</div>
+      <div class="comp-name">
+        <span class="fr-inline">Discours</span>
+        <span class="en-inline">Discourse</span>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-icon">&#8644;</div>
+      <div class="comp-name">
+        <span class="fr-inline">Flexibilite</span>
+        <span class="en-inline">Flexibility</span>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-icon">&#9672;</div>
+      <div class="comp-name">
+        <span class="fr-inline">Gestion du stress</span>
+        <span class="en-inline">Stress mgmt</span>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-icon">&#9889;</div>
+      <div class="comp-name">
+        <span class="fr-inline">Dynamisme</span>
+        <span class="en-inline">Dynamism</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h3>
+      <span class="fr-inline">Rappel essentiel</span>
+      <span class="en-inline">Essential reminder</span>
+    </h3>
+    <p>
+      <span class="fr-inline">Les oraux sont <strong>anonymes</strong>. Tu es cache derriere un rideau pendant la preparation. Il n'y a <strong>pas de bonne reponse</strong> — le jury veut voir ta reflexion, ta spontaneite, et ta capacite a justifier tes choix. Reste toi-meme, ne mens pas.</span>
+      <span class="en-inline">The orals are <strong>anonymous</strong>. You're hidden behind a curtain during preparation. There is <strong>no right answer</strong> — the jury wants to see your reasoning, your spontaneity, and your ability to justify your choices. Be yourself, don't lie.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ========== 2. COMPRENDRE LE JURY ========== -->
+<section id="jury" class="fade-in">
+  <h2>
+    <span class="fr-inline">Comprendre <span>le jury</span></span>
+    <span class="en-inline">Understanding <span>the jury</span></span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">Ils ne sont pas la pour te pieger. Ils sont la pour te departager. Comprendre leur strategie change tout.</span>
+    <span class="en-inline">They're not there to trap you. They're there to differentiate you. Understanding their strategy changes everything.</span>
+  </p>
+
+  <!-- Jury pattern -->
+  <div class="jury-pattern">
+    <div class="jury-member">
+      <div class="jury-avatar">&#128293;</div>
+      <strong>
+        <span class="fr-inline">Le "dur"</span>
+        <span class="en-inline">The "tough one"</span>
+      </strong>
+      <p style="font-size:0.85rem; margin-top:8px;">
+        <span class="fr-inline">Questions destabilisantes, provoque, pousse dans tes retranchements. C'est delibere.</span>
+        <span class="en-inline">Destabilizing questions, provokes, pushes you to your limits. It's deliberate.</span>
+      </p>
+      <div class="jury-role">
+        <span class="fr-inline">Teste ta resilience</span>
+        <span class="en-inline">Tests resilience</span>
+      </div>
+    </div>
+    <div class="jury-member">
+      <div class="jury-avatar">&#128065;</div>
+      <strong>
+        <span class="fr-inline">L'observateur</span>
+        <span class="en-inline">The observer</span>
+      </strong>
+      <p style="font-size:0.85rem; margin-top:8px;">
+        <span class="fr-inline">Questions neutres, observe ton langage corporel et ta coherence globale.</span>
+        <span class="en-inline">Neutral questions, observes your body language and overall coherence.</span>
+      </p>
+      <div class="jury-role">
+        <span class="fr-inline">Evalue l'ensemble</span>
+        <span class="en-inline">Evaluates the whole</span>
+      </div>
+    </div>
+    <div class="jury-member">
+      <div class="jury-avatar">&#129309;</div>
+      <strong>
+        <span class="fr-inline">Le bienveillant</span>
+        <span class="en-inline">The supportive one</span>
+      </strong>
+      <p style="font-size:0.85rem; margin-top:8px;">
+        <span class="fr-inline">Relance, aide a developper tes idees si tu bloques. Peut sourire.</span>
+        <span class="en-inline">Follow-up questions, helps develop your ideas if you get stuck. May smile.</span>
+      </p>
+      <div class="jury-role">
+        <span class="fr-inline">Facilite l'echange</span>
+        <span class="en-inline">Facilitates exchange</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h3>
+      <span class="fr-inline">Strategie cle : regarde-les TOUS</span>
+      <span class="en-inline">Key strategy: look at ALL of them</span>
+    </h3>
+    <ul>
+      <li>
+        <span class="fr-inline"><strong>Ne fixe pas que le "dur"</strong> — il te provoque, mais les deux autres observent COMMENT tu reagis. Ton calme face aux provocations impressionne plus les observateurs que ta reponse elle-meme.</span>
+        <span class="en-inline"><strong>Don't fixate on the "tough one"</strong> — they're provoking you, but the other two observe HOW you react. Your calm under provocation impresses the observers more than the answer itself.</span>
+      </li>
+      <li>
+        <span class="fr-inline"><strong>Balaye du regard</strong> — quand tu reponds, inclus les trois dans ton regard. Chacun doit se sentir concerne par ce que tu dis.</span>
+        <span class="en-inline"><strong>Sweep your gaze</strong> — when answering, include all three in your eye contact. Each one should feel engaged by what you're saying.</span>
+      </li>
+      <li>
+        <span class="fr-inline"><strong>Le "dur" n'est pas ton ennemi</strong> — il te donne l'occasion de montrer ta flexibilite et ta resistance au stress. C'est un cadeau deguise.</span>
+        <span class="en-inline"><strong>The "tough one" isn't your enemy</strong> — they give you the chance to show flexibility and stress resistance. It's a gift in disguise.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Polemic questions -->
+  <div class="card card-coral">
+    <h3>
+      <span class="fr-inline">Les questions "polemiques" — ce qu'elles testent vraiment</span>
+      <span class="en-inline">"Polemic" questions — what they really test</span>
+    </h3>
+    <p style="margin-bottom: 12px;">
+      <span class="fr-inline">Le jury peut poser des questions volontairement provocatrices. Pas pour te pieger, mais pour verifier 3 choses :</span>
+      <span class="en-inline">The jury may ask deliberately provocative questions. Not to trap you, but to verify 3 things:</span>
+    </p>
+    <ol style="padding-left: 20px;">
+      <li style="margin-bottom: 10px;">
+        <strong>
+          <span class="fr-inline">Tu reconnais la complexite</span>
+          <span class="en-inline">You recognize the complexity</span>
+        </strong>
+        <br>
+        <span class="fr-inline">Pas de reponse binaire. "C'est complique parce que..."</span>
+        <span class="en-inline">No binary answer. "It's complicated because..."</span>
+      </li>
+      <li style="margin-bottom: 10px;">
+        <strong>
+          <span class="fr-inline">Tu articules differentes perspectives</span>
+          <span class="en-inline">You articulate different perspectives</span>
+        </strong>
+        <br>
+        <span class="fr-inline">Montre que tu comprends POURQUOI d'autres pensent differemment.</span>
+        <span class="en-inline">Show you understand WHY others think differently.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="fr-inline">Tu prends position et tu justifies</span>
+          <span class="en-inline">You take a stance and justify it</span>
+        </strong>
+        <br>
+        <span class="fr-inline">Apres avoir montre la nuance, donne TON avis avec des arguments. Ne reste pas sur la barriere.</span>
+        <span class="en-inline">After showing nuance, give YOUR opinion with arguments. Don't sit on the fence.</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========== 3. BLUEPRINTS ========== -->
+<section id="blueprints" class="fade-in">
+  <h2>
+    <span class="fr-inline">Blueprints <span>de reponse</span></span>
+    <span class="en-inline">Response <span>blueprints</span></span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">Des squelettes de reponse a avoir en tete. Pas des reponses toutes faites — des structures pour organiser ta pensee en 2 secondes.</span>
+    <span class="en-inline">Response skeletons to keep in mind. Not canned answers — structures to organize your thinking in 2 seconds.</span>
+  </p>
+
+  <!-- Blueprint 1: Ethical dilemma -->
+  <div class="blueprint" onclick="this.classList.toggle('open')">
+    <div class="blueprint-header">
+      <h3>
+        <span class="fr-inline">Dilemme ethique</span>
+        <span class="en-inline">Ethical dilemma</span>
+      </h3>
+      <div style="display:flex;align-items:center;">
+        <div class="trigger-label">
+          <span class="fr-inline">"Votre ami est recu, pas vous..."</span>
+          <span class="en-inline">"Your friend passed, you didn't..."</span>
+        </div>
+        <div class="blueprint-toggle">+</div>
+      </div>
+    </div>
+    <div class="blueprint-body">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="fr-inline">Emotion brute</span>
+          <span class="en-inline">Raw emotion</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Empathie pour l'autre</span>
+          <span class="en-inline">Empathy for the other</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Prise de recul</span>
+          <span class="en-inline">Step back</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Position nuancee</span>
+          <span class="en-inline">Nuanced position</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Actions concretes</span>
+          <span class="en-inline">Concrete actions</span>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>
+          <span class="fr-inline">Exemple :</span>
+          <span class="en-inline">Example:</span>
+        </strong><br>
+        <span class="fr-inline">"Honnetement, ma premiere reaction serait de la tristesse et de la deception. [emotion] Mais en meme temps, je sais que mon ami a travaille dur et merite sa place. [empathie] Si j'inverse la situation, j'aimerais qu'il soit heureux pour moi. [recul] Je pense que l'amitie peut survivre a ca, meme si c'est difficile. [position] Concretement, je le feliciterais, et je me renseignerais sur la L.AS ou d'autres parcours. [action]"</span>
+        <span class="en-inline">"Honestly, my first reaction would be sadness and disappointment. [emotion] But at the same time, I know my friend worked hard and deserves their spot. [empathy] If I reverse the situation, I'd want them to be happy for me. [step back] I believe the friendship can survive this, even if it's hard. [position] Concretely, I'd congratulate them, and look into L.AS or other paths. [action]"</span>
+      </div>
+      <div class="trap-box">
+        <strong>
+          <span class="fr-inline">Pieges a eviter :</span>
+          <span class="en-inline">Traps to avoid:</span>
+        </strong>
+        <ul style="padding-left: 18px; margin-top: 6px;">
+          <li>
+            <span class="fr-inline">Dire "je serais juste content pour lui" — le jury sait que c'est faux. L'honnetete prime.</span>
+            <span class="en-inline">Saying "I'd just be happy for them" — the jury knows that's not true. Honesty first.</span>
+          </li>
+          <li>
+            <span class="fr-inline">Rester dans l'emotion sans en sortir. Montre l'evolution de ta pensee.</span>
+            <span class="en-inline">Staying in the emotion without moving past it. Show how your thinking evolves.</span>
+          </li>
+        </ul>
+      </div>
+      <p style="font-weight:700; margin-top:16px;">
+        <span class="fr-inline">Entraine-toi avec :</span>
+        <span class="en-inline">Practice with:</span>
+      </p>
+      <ul class="practice-prompts">
+        <li>
+          <span class="fr-inline">Ton meilleur ami copie sur toi pendant un examen. Tu le decouvres apres. Que fais-tu ?</span>
+          <span class="en-inline">Your best friend copies from you during an exam. You find out after. What do you do?</span>
+        </li>
+        <li>
+          <span class="fr-inline">Tu dois choisir entre un stage qui avance ta carriere et etre present pour un proche malade.</span>
+          <span class="en-inline">You must choose between a career-advancing internship and being there for a sick loved one.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Blueprint 2: Polemic question -->
+  <div class="blueprint" onclick="this.classList.toggle('open')">
+    <div class="blueprint-header">
+      <h3>
+        <span class="fr-inline">Question polemique</span>
+        <span class="en-inline">Polemic question</span>
+      </h3>
+      <div style="display:flex;align-items:center;">
+        <div class="trigger-label">
+          <span class="fr-inline">"Un medecin peut-il refuser de soigner ?"</span>
+          <span class="en-inline">"Can a doctor refuse to treat?"</span>
+        </div>
+        <div class="blueprint-toggle">+</div>
+      </div>
+    </div>
+    <div class="blueprint-body">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="fr-inline">Reconnaitre la polemique</span>
+          <span class="en-inline">Acknowledge the controversy</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">2-3 perspectives</span>
+          <span class="en-inline">2-3 perspectives</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Ta position + pourquoi</span>
+          <span class="en-inline">Your stance + why</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Limites de ta position</span>
+          <span class="en-inline">Limits of your stance</span>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>
+          <span class="fr-inline">Exemple :</span>
+          <span class="en-inline">Example:</span>
+        </strong><br>
+        <span class="fr-inline">"C'est une question qui divise, et je comprends pourquoi. [reconnaitre] D'un cote, le serment d'Hippocrate engage a soigner tout le monde. De l'autre, la clause de conscience existe et protege le medecin dans certains cas. [perspectives] Personnellement, je pense que le soin d'urgence ne peut jamais etre refuse, mais que pour des actes non urgents, un medecin devrait pouvoir orienter vers un confrere. [position] Je reconnais que ca pose un probleme d'acces dans les deserts medicaux ou il n'y a pas d'alternative. [limites]"</span>
+        <span class="en-inline">"This is a divisive question, and I understand why. [acknowledge] On one hand, the Hippocratic oath commits you to treating everyone. On the other, the conscience clause exists to protect doctors in certain cases. [perspectives] Personally, I believe emergency care can never be refused, but for non-urgent procedures, a doctor should be able to refer to a colleague. [stance] I recognize this creates access problems in medical deserts where there's no alternative. [limits]"</span>
+      </div>
+      <div class="trap-box">
+        <strong>
+          <span class="fr-inline">Pieges a eviter :</span>
+          <span class="en-inline">Traps to avoid:</span>
+        </strong>
+        <ul style="padding-left: 18px; margin-top: 6px;">
+          <li>
+            <span class="fr-inline">Repondre "oui" ou "non" sans nuance.</span>
+            <span class="en-inline">Answering "yes" or "no" without nuance.</span>
+          </li>
+          <li>
+            <span class="fr-inline">Donner 4 perspectives sans jamais prendre position. Le jury veut AUSSI ton avis.</span>
+            <span class="en-inline">Giving 4 perspectives without ever taking a stance. The jury ALSO wants your opinion.</span>
+          </li>
+        </ul>
+      </div>
+      <ul class="practice-prompts">
+        <li>
+          <span class="fr-inline">L'euthanasie devrait-elle etre legale pour les mineurs ?</span>
+          <span class="en-inline">Should euthanasia be legal for minors?</span>
+        </li>
+        <li>
+          <span class="fr-inline">Faut-il rendre la vaccination obligatoire pour tous ?</span>
+          <span class="en-inline">Should vaccination be mandatory for everyone?</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Blueprint 3: Role reversal -->
+  <div class="blueprint" onclick="this.classList.toggle('open')">
+    <div class="blueprint-header">
+      <h3>
+        <span class="fr-inline">Inversion de situation</span>
+        <span class="en-inline">Role reversal</span>
+      </h3>
+      <div style="display:flex;align-items:center;">
+        <div class="trigger-label">
+          <span class="fr-inline">"Et si c'etait l'inverse ?"</span>
+          <span class="en-inline">"What if it were reversed?"</span>
+        </div>
+        <div class="blueprint-toggle">+</div>
+      </div>
+    </div>
+    <div class="blueprint-body">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="fr-inline">Se projeter sincerement</span>
+          <span class="en-inline">Genuinely project yourself</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Ce qui change</span>
+          <span class="en-inline">What changes</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Ce qui reste</span>
+          <span class="en-inline">What stays</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Ce que ca t'apprend</span>
+          <span class="en-inline">What it teaches you</span>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>
+          <span class="fr-inline">Exemple :</span>
+          <span class="en-inline">Example:</span>
+        </strong><br>
+        <span class="fr-inline">"Si j'etais celui qui est recu, je pense que je ressentirais un melange de joie et de culpabilite. [projection] Ce qui changerait, c'est que j'aurais le poids de ne pas savoir comment reagir face a mon ami. [ce qui change] Mais ce qui resterait, c'est l'amitie et l'envie d'etre la pour lui. [ce qui reste] Ca me montre que les deux cotes de la situation sont difficiles, et ca renforce mon empathie. [lecon]"</span>
+        <span class="en-inline">"If I were the one who passed, I think I'd feel a mix of joy and guilt. [projection] What would change is I'd carry the weight of not knowing how to react in front of my friend. [what changes] But what would stay is the friendship and wanting to be there for them. [what stays] This shows me both sides of the situation are difficult, and it strengthens my empathy. [lesson]"</span>
+      </div>
+      <ul class="practice-prompts">
+        <li>
+          <span class="fr-inline">Tu es medecin et ton patient refuse un traitement vital. Puis : et si TU etais le patient ?</span>
+          <span class="en-inline">You're a doctor and your patient refuses vital treatment. Then: what if YOU were the patient?</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Blueprint 4: I don't know -->
+  <div class="blueprint" onclick="this.classList.toggle('open')">
+    <div class="blueprint-header">
+      <h3>
+        <span class="fr-inline">Aveu d'ignorance</span>
+        <span class="en-inline">Honest "I don't know"</span>
+      </h3>
+      <div style="display:flex;align-items:center;">
+        <div class="trigger-label">
+          <span class="fr-inline">"Qu'est-ce que l'hematurie ?"</span>
+          <span class="en-inline">"What is hematuria?"</span>
+        </div>
+        <div class="blueprint-toggle">+</div>
+      </div>
+    </div>
+    <div class="blueprint-body">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="fr-inline">Admettre honnetement</span>
+          <span class="en-inline">Honestly admit</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Raisonner a voix haute</span>
+          <span class="en-inline">Reason out loud</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Montrer la curiosite</span>
+          <span class="en-inline">Show curiosity</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Pivoter vers ce que tu sais</span>
+          <span class="en-inline">Pivot to what you know</span>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>
+          <span class="fr-inline">Exemple :</span>
+          <span class="en-inline">Example:</span>
+        </strong><br>
+        <span class="fr-inline">"Je ne connais pas ce terme exactement. [admettre] Mais si je decompose : 'hemato' fait reference au sang, et 'urie' a l'urine, donc je dirais que c'est la presence de sang dans les urines. [raisonner] C'est un symptome qui m'intrigue car il pourrait signaler plusieurs pathologies. [curiosite]"</span>
+        <span class="en-inline">"I don't know that term exactly. [admit] But if I break it down: 'hemato' refers to blood, and 'uria' to urine, so I'd say it's the presence of blood in urine. [reason] It's a symptom that intrigues me as it could signal several pathologies. [curiosity]"</span>
+      </div>
+      <div class="trap-box">
+        <strong>
+          <span class="fr-inline">Pieges a eviter :</span>
+          <span class="en-inline">Traps to avoid:</span>
+        </strong>
+        <ul style="padding-left: 18px; margin-top: 6px;">
+          <li>
+            <span class="fr-inline">Inventer une reponse. Le jury le verra et ca te desservira plus que "je ne sais pas".</span>
+            <span class="en-inline">Making up an answer. The jury will see through it and it'll hurt more than "I don't know."</span>
+          </li>
+          <li>
+            <span class="fr-inline">Se bloquer et ne plus parler. Dis-le, raisonne, et enchaine.</span>
+            <span class="en-inline">Freezing and going silent. Say it, reason through it, and move on.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blueprint 5: Provocation -->
+  <div class="blueprint" onclick="this.classList.toggle('open')">
+    <div class="blueprint-header">
+      <h3>
+        <span class="fr-inline">Provocation du jury</span>
+        <span class="en-inline">Jury provocation</span>
+      </h3>
+      <div style="display:flex;align-items:center;">
+        <div class="trigger-label">
+          <span class="fr-inline">"Donc vous abandonneriez votre ami ?"</span>
+          <span class="en-inline">"So you'd abandon your friend?"</span>
+        </div>
+        <div class="blueprint-toggle">+</div>
+      </div>
+    </div>
+    <div class="blueprint-body">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="fr-inline">Ne pas se braquer</span>
+          <span class="en-inline">Don't get defensive</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Reformuler calmement</span>
+          <span class="en-inline">Reframe calmly</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Clarifier ta position</span>
+          <span class="en-inline">Clarify your stance</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Rester stable</span>
+          <span class="en-inline">Stay stable</span>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>
+          <span class="fr-inline">Exemple :</span>
+          <span class="en-inline">Example:</span>
+        </strong><br>
+        <span class="fr-inline">"Non, ce n'est pas ce que j'ai dit. [calme] Ce que je voulais exprimer, c'est que prendre du temps pour soi n'est pas abandonner l'autre. [reformuler] Je pense qu'on peut gerer ses propres emotions tout en restant present pour son ami. Les deux ne sont pas incompatibles. [clarifier] Et c'est justement parce que l'amitie compte que je veux la preserver en prenant soin de moi aussi. [stable]"</span>
+        <span class="en-inline">"No, that's not what I said. [calm] What I was trying to express is that taking time for yourself isn't abandoning the other person. [reframe] I believe you can process your own emotions while still being there for your friend. The two aren't incompatible. [clarify] And it's precisely because the friendship matters that I want to preserve it by also taking care of myself. [stable]"</span>
+      </div>
+      <div class="trap-box">
+        <strong>
+          <span class="fr-inline">Pieges a eviter :</span>
+          <span class="en-inline">Traps to avoid:</span>
+        </strong>
+        <ul style="padding-left: 18px; margin-top: 6px;">
+          <li>
+            <span class="fr-inline">Se justifier de maniere agressive ou blamer le jury. Reste zen.</span>
+            <span class="en-inline">Justifying yourself aggressively or blaming the jury. Stay zen.</span>
+          </li>
+          <li>
+            <span class="fr-inline">Changer completement d'avis par peur. C'est OK d'evoluer, mais pas de capituler.</span>
+            <span class="en-inline">Completely changing your mind out of fear. It's OK to evolve, but not to capitulate.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blueprint 6: Personal values -->
+  <div class="blueprint" onclick="this.classList.toggle('open')">
+    <div class="blueprint-header">
+      <h3>
+        <span class="fr-inline">Valeurs personnelles</span>
+        <span class="en-inline">Personal values</span>
+      </h3>
+      <div style="display:flex;align-items:center;">
+        <div class="trigger-label">
+          <span class="fr-inline">"Pourquoi la medecine ?"</span>
+          <span class="en-inline">"Why medicine?"</span>
+        </div>
+        <div class="blueprint-toggle">+</div>
+      </div>
+    </div>
+    <div class="blueprint-body">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="fr-inline">Histoire concrete</span>
+          <span class="en-inline">Concrete story</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Valeur revelee</span>
+          <span class="en-inline">Value revealed</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Lien avec la sante</span>
+          <span class="en-inline">Link to healthcare</span>
+        </div>
+        <div class="flow-step">
+          <span class="fr-inline">Limites honnetes</span>
+          <span class="en-inline">Honest limits</span>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>
+          <span class="fr-inline">Cle :</span>
+          <span class="en-inline">Key:</span>
+        </strong><br>
+        <span class="fr-inline">Ne recite pas un discours prepare. Pars d'un moment REEL de ta vie. "Quand mon grand-pere etait malade, j'ai vu comment un medecin pouvait..." est 100x plus puissant que "depuis toujours j'ai voulu aider les gens".</span>
+        <span class="en-inline">Don't recite a prepared speech. Start from a REAL moment in your life. "When my grandfather was sick, I saw how a doctor could..." is 100x more powerful than "I've always wanted to help people."</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4. EPREUVE 1 : PROBLEMATIQUE COMPLEXE ========== -->
+<section id="epreuve1" class="fade-in">
+  <h2>
+    <span class="fr-inline">Problematique <span>complexe</span></span>
+    <span class="en-inline">Complex <span>scenario</span></span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">10 minutes pour montrer qui tu es. Pas de bonne reponse, seulement TA reflexion.</span>
+    <span class="en-inline">10 minutes to show who you are. No right answer, only YOUR reasoning.</span>
+  </p>
+
+  <!-- How it works -->
+  <div class="card">
+    <h3>
+      <span class="fr-inline">Comment ca se passe</span>
+      <span class="en-inline">How it works</span>
+    </h3>
+    <ol style="padding-left: 20px;">
+      <li style="margin-bottom: 8px;">
+        <span class="fr-inline">Tu es appele par ton numero d'anonymat, tu entres dans la salle.</span>
+        <span class="en-inline">You're called by your anonymization number, you enter the room.</span>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <span class="fr-inline">Le jury te presente <strong>2 sujets</strong>. Tu en choisis un en quelques secondes.</span>
+        <span class="en-inline">The jury presents <strong>2 topics</strong>. You choose one in a few seconds.</span>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <span class="fr-inline">Tu t'installes face a un rideau (le jury ne te voit pas, tu ne les vois pas). Feuilles de brouillon disponibles.</span>
+        <span class="en-inline">You sit facing a curtain (the jury can't see you, you can't see them). Scratch paper available.</span>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <span class="fr-inline"><strong>2 minutes</strong> de reflexion silencieuse. Mots cles sur le brouillon.</span>
+        <span class="en-inline"><strong>2 minutes</strong> of silent reflection. Key words on scratch paper.</span>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <span class="fr-inline">Tu te positionnes face au jury. <strong>3 minutes</strong> de presentation : analyse + reaction.</span>
+        <span class="en-inline">You face the jury. <strong>3 minutes</strong> of presentation: analysis + reaction.</span>
+      </li>
+      <li>
+        <span class="fr-inline"><strong>7 minutes</strong> de discussion / questions avec le jury.</span>
+        <span class="en-inline"><strong>7 minutes</strong> of discussion / questions with the jury.</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Phase tips -->
+  <h3 style="margin: 30px 0 10px;">
+    <span class="fr-inline">Quoi faire a chaque phase</span>
+    <span class="en-inline">What to do at each phase</span>
+  </h3>
+
+  <div class="phase-timeline">
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-time">
+        <span class="fr-inline">0:00 — 2:00 | Reflexion</span>
+        <span class="en-inline">0:00 — 2:00 | Reflection</span>
+      </div>
+      <ul style="padding-left: 20px; font-size: 0.9rem;">
+        <li class="fr">Lis le sujet 2 fois. Comprends-le VRAIMENT avant d'ecrire.</li>
+        <li class="fr">Note les mots-cles et les grandes parties sur le brouillon.</li>
+        <li class="fr">Ne redige PAS — tu n'as pas le temps. Juste une trame.</li>
+        <li class="en">Read the topic twice. REALLY understand it before writing.</li>
+        <li class="en">Note keywords and main parts on scratch paper.</li>
+        <li class="en">DON'T write full sentences — no time. Just an outline.</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-time">
+        <span class="fr-inline">2:00 — 5:00 | Presentation orale</span>
+        <span class="en-inline">2:00 — 5:00 | Oral presentation</span>
+      </div>
+      <ul style="padding-left: 20px; font-size: 0.9rem;">
+        <li class="fr">Structure : contexte bref > ton analyse > ta reaction > conclusion.</li>
+        <li class="fr">Mots de liaison (premierement, par la suite, enfin...) pour que le jury suive.</li>
+        <li class="fr">Pauses de 2-3 secondes — ca te pose et ca laisse le jury assimiler.</li>
+        <li class="fr">Justifie TOUT. Pas "je pense que..." mais "je pense que... parce que...".</li>
+        <li class="fr">Sois empathique : la sante, c'est l'humain. Tes emotions sont pertinentes.</li>
+        <li class="fr">Termine sur une note positive.</li>
+        <li class="en">Structure: brief context > your analysis > your reaction > conclusion.</li>
+        <li class="en">Linking words (first, then, finally...) so the jury can follow.</li>
+        <li class="en">2-3 second pauses — grounds you and lets the jury absorb.</li>
+        <li class="en">Justify EVERYTHING. Not "I think..." but "I think... because...".</li>
+        <li class="en">Be empathetic: healthcare is about humans. Your emotions are relevant.</li>
+        <li class="en">End on a positive note.</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-time">
+        <span class="fr-inline">5:00 — 12:00 | Discussion</span>
+        <span class="en-inline">5:00 — 12:00 | Discussion</span>
+      </div>
+      <ul style="padding-left: 20px; font-size: 0.9rem;">
+        <li class="fr"><strong>Sois flexible</strong> — tu peux changer d'avis ! C'est meme bien vu si tu expliques pourquoi.</li>
+        <li class="fr"><strong>Justifie chaque reponse</strong> — pas de "oui" ou "non" sec.</li>
+        <li class="fr"><strong>Tu peux etre en desaccord</strong> avec le jury. Donne tes arguments calmement.</li>
+        <li class="fr"><strong>Vois le pour et le contre</strong> de chaque question, puis positionne-toi.</li>
+        <li class="fr"><strong>"Je ne sais pas"</strong> est une reponse valide. Mieux que mentir.</li>
+        <li class="en"><strong>Be flexible</strong> — you can change your mind! It's even well-regarded if you explain why.</li>
+        <li class="en"><strong>Justify each answer</strong> — no dry "yes" or "no."</li>
+        <li class="en"><strong>You can disagree</strong> with the jury. Give your arguments calmly.</li>
+        <li class="en"><strong>See pros and cons</strong> of each question, then take your stance.</li>
+        <li class="en"><strong>"I don't know"</strong> is a valid answer. Better than lying.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5. EPREUVE 2 : ANALYSE DE DOCUMENT ========== -->
+<section id="epreuve2" class="fade-in">
+  <h2>
+    <span class="fr-inline">Analyse de <span>document</span></span>
+    <span class="en-inline">Document <span>analysis</span></span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">30 minutes de preparation, 3 minutes de presentation, 7 de questions. La methode fait la difference.</span>
+    <span class="en-inline">30 minutes prep, 3 minutes presentation, 7 of questions. Method makes the difference.</span>
+  </p>
+
+  <!-- Structure of analysis -->
+  <div class="card">
+    <h3>
+      <span class="fr-inline">Structure de ton analyse</span>
+      <span class="en-inline">Structure of your analysis</span>
+    </h3>
+    <div class="phase-timeline" style="margin: 16px 0 0;">
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <h3 style="font-size:1rem;">Introduction</h3>
+        <p style="font-size: 0.9rem;">
+          <span class="fr-inline">Titre, revue, auteurs (pas tous), date, contexte de publication, sujet principal, enjeux, problematique, annonce du plan.</span>
+          <span class="en-inline">Title, journal, authors (not all), date, publication context, main subject, stakes, thesis question, outline of your plan.</span>
+        </p>
+      </div>
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <h3 style="font-size:1rem;">
+          <span class="fr-inline">Developpement (2-3 axes)</span>
+          <span class="en-inline">Development (2-3 axes)</span>
+        </h3>
+        <p style="font-size: 0.9rem;">
+          <span class="fr-inline">Un fil conducteur clair. Cite les donnees chiffrees et exemples du document. Ne paraphrase PAS — reformule. Inclus ta culture personnelle tout au long (pas seulement a l'ouverture).</span>
+          <span class="en-inline">A clear guiding thread. Cite data and examples from the document. DON'T paraphrase — reformulate. Include your personal culture throughout (not just in the opening).</span>
+        </p>
+      </div>
+      <div class="phase">
+        <div class="phase-dot"></div>
+        <h3 style="font-size:1rem;">Conclusion</h3>
+        <p style="font-size: 0.9rem;">
+          <span class="fr-inline">Resume, reponds a ta problematique, limites de l'article, ouverture. Soigne-la — c'est la derniere impression.</span>
+          <span class="en-inline">Summarize, answer your thesis, article limitations, opening. Polish it — it's the last impression.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reading methods -->
+  <h3 style="margin: 30px 0 10px;">
+    <span class="fr-inline">Methodes de lecture</span>
+    <span class="en-inline">Reading methods</span>
+  </h3>
+  <div class="method-accordion">
+    <div class="method-item" onclick="this.classList.toggle('open')">
+      <div class="method-header">
+        <span>
+          <span class="fr-inline">Methode 1 : Approche globale puis lecture approfondie</span>
+          <span class="en-inline">Method 1: Global approach then deep reading</span>
+        </span>
+        <span class="method-toggle">+</span>
+      </div>
+      <div class="method-body">
+        <p>
+          <span class="fr-inline">D'abord un survol cible : titre, auteur, intro, titres des parties, conclusion. Cela te donne la vue d'ensemble et les enjeux AVANT de plonger dans le detail. Ensuite, lecture approfondie de l'ensemble.</span>
+          <span class="en-inline">First a targeted scan: title, author, intro, section titles, conclusion. This gives you the big picture and stakes BEFORE diving into detail. Then, deep reading of the whole.</span>
+        </p>
+      </div>
+    </div>
+    <div class="method-item" onclick="this.classList.toggle('open')">
+      <div class="method-header">
+        <span>
+          <span class="fr-inline">Methode 2 : Lecture approfondie directe</span>
+          <span class="en-inline">Method 2: Direct deep reading</span>
+        </span>
+        <span class="method-toggle">+</span>
+      </div>
+      <div class="method-body">
+        <p>
+          <span class="fr-inline">Si tu n'as pas le temps pour deux passes, plonge directement dans une lecture complete. L'objectif : extraire les informations les plus pertinentes. Tu n'as que 3 minutes de restitution — sois selectif. Surligne par code couleur au fil de la lecture.</span>
+          <span class="en-inline">If you don't have time for two passes, dive directly into a full read. The goal: extract the most relevant information. You only have 3 minutes for presentation — be selective. Color-code highlight as you go.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brouillon methods -->
+  <h3 style="margin: 30px 0 10px;">
+    <span class="fr-inline">Organisation du brouillon</span>
+    <span class="en-inline">Organizing your notes</span>
+  </h3>
+  <div class="exam-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="card" style="text-align:center;">
+      <h3 style="font-size:1rem;">
+        <span class="fr-inline">Brouillon seul</span>
+        <span class="en-inline">Notes only</span>
+      </h3>
+      <p style="font-size:0.85rem;">
+        <span class="fr-inline">Tout sur le brouillon : intro, axes, conclusion, infos cles. Un seul support a consulter.</span>
+        <span class="en-inline">Everything on your notes: intro, axes, conclusion, key info. One single support to consult.</span>
+      </p>
+    </div>
+    <div class="card card-coral" style="text-align:center;">
+      <h3 style="font-size:1rem;">
+        <span class="fr-inline">Hybride</span>
+        <span class="en-inline">Hybrid</span>
+      </h3>
+      <p style="font-size:0.85rem;">
+        <span class="fr-inline">Axes + mots-cles sur le brouillon, annotations "voir p.3, para 4" + surlignage sur le document.</span>
+        <span class="en-inline">Axes + keywords on notes, annotations "see p.3, para 4" + highlighting on the document.</span>
+      </p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <h3 style="font-size:1rem;">
+        <span class="fr-inline">Document seul</span>
+        <span class="en-inline">Document only</span>
+      </h3>
+      <p style="font-size:0.85rem;">
+        <span class="fr-inline">Code couleur directement sur le document. Attention : ne pas paraphraser !</span>
+        <span class="en-inline">Color code directly on the document. Careful: don't paraphrase!</span>
+      </p>
+    </div>
+  </div>
+  <p style="font-size: 0.85rem; opacity: 0.7; text-align: center; font-family: 'Space Mono', monospace;">
+    <span class="fr-inline">Regle : 1 feuille A4 remplie = ~3 min d'oral. Ne depasse pas 1 feuille.</span>
+    <span class="en-inline">Rule: 1 filled A4 sheet = ~3 min of oral. Don't go beyond 1 sheet.</span>
+  </p>
+
+  <div class="callout" style="margin-top: 30px;">
+    <h3>
+      <span class="fr-inline">Prepare-toi en amont</span>
+      <span class="en-inline">Prepare upstream</span>
+    </h3>
+    <p>
+      <span class="fr-inline">Les documents peuvent etre sur n'importe quel sujet (sante, societe, science...). Plus ta culture generale est large, plus tu seras a l'aise. Lis des articles sur PubMed, Le Monde, Futura Sciences, The Conversation. Ecoute des podcasts (France Culture, Sante!, Sixieme Science). Sois curieux.</span>
+      <span class="en-inline">Documents can cover any topic (health, society, science...). The broader your general knowledge, the more comfortable you'll be. Read articles on PubMed, Le Monde, Futura Sciences, The Conversation. Listen to podcasts (France Culture, Sante!, Sixieme Science). Be curious.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ========== 6. HOT TOPICS ========== -->
+<section id="topics" class="fade-in">
+  <h2>
+    <span class="fr-inline">Sujets <span>brulants</span> 2025–2026</span>
+    <span class="en-inline"><span>Hot</span> topics 2025–2026</span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">Les themes d'actualite les plus susceptibles de tomber. Clique pour voir les questions potentielles du jury.</span>
+    <span class="en-inline">Current topics most likely to come up. Click to see potential jury questions.</span>
+  </p>
+
+  <div class="topics-grid">
+    <!-- Topic 1 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-health topic-tag">
+        <span class="fr-inline">Sante</span>
+        <span class="en-inline">Health</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Fin de vie / Aide a mourir</span>
+        <span class="en-inline">End of life / Assisted dying</span>
+      </h4>
+      <p>
+        <span class="fr-inline">La France a adopte la loi sur la fin de vie en 2025. Tension entre autonomie du patient, ethique medicale et convictions religieuses.</span>
+        <span class="en-inline">France passed the end-of-life law in 2025. Tension between patient autonomy, medical ethics, and religious convictions.</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Un medecin qui refuse l'aide a mourir par conviction, est-ce acceptable ?</li>
+          <li class="fr">Ou placer la limite entre soulager et mettre fin a une vie ?</li>
+          <li class="fr">Un mineur devrait-il pouvoir en faire la demande ?</li>
+          <li class="en">Is it acceptable for a doctor to refuse assisted dying based on conviction?</li>
+          <li class="en">Where to draw the line between relieving and ending a life?</li>
+          <li class="en">Should a minor be able to request it?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 2 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-tech topic-tag">Tech</div>
+      <h4>
+        <span class="fr-inline">IA en medecine</span>
+        <span class="en-inline">AI in medicine</span>
+      </h4>
+      <p>
+        <span class="fr-inline">Apres ChatGPT en 2023, l'IA diagnostique desormais certaines pathologies mieux que les medecins. Qui est responsable en cas d'erreur ?</span>
+        <span class="en-inline">After ChatGPT in 2023, AI now diagnoses some pathologies better than doctors. Who is responsible for errors?</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">L'IA peut-elle remplacer la relation medecin-patient ?</li>
+          <li class="fr">Feriez-vous confiance a un diagnostic pose par une IA ?</li>
+          <li class="fr">Un medecin qui n'utilise pas l'IA est-il negligent ?</li>
+          <li class="en">Can AI replace the doctor-patient relationship?</li>
+          <li class="en">Would you trust a diagnosis made by AI?</li>
+          <li class="en">Is a doctor who doesn't use AI negligent?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 3 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-health topic-tag">
+        <span class="fr-inline">Sante</span>
+        <span class="en-inline">Health</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Deserts medicaux</span>
+        <span class="en-inline">Medical deserts</span>
+      </h4>
+      <p>
+        <span class="fr-inline">Des millions de Francais n'ont plus de medecin traitant. Faut-il obliger les jeunes medecins a s'installer en zone rurale ?</span>
+        <span class="en-inline">Millions of French citizens no longer have a primary doctor. Should young doctors be forced to practice in rural areas?</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Obliger un medecin a s'installer quelque part, est-ce compatible avec la liberte ?</li>
+          <li class="fr">La telemedecine peut-elle resoudre le probleme ?</li>
+          <li class="fr">Seriez-vous pret a exercer dans un desert medical ?</li>
+          <li class="en">Is forcing a doctor to practice somewhere compatible with freedom?</li>
+          <li class="en">Can telemedicine solve the problem?</li>
+          <li class="en">Would you be willing to practice in a medical desert?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 4 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-society topic-tag">
+        <span class="fr-inline">Societe</span>
+        <span class="en-inline">Society</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Sante mentale des jeunes</span>
+        <span class="en-inline">Youth mental health</span>
+      </h4>
+      <p>
+        <span class="fr-inline">Explosion de l'anxiete et de la depression chez les 15-25 ans. Lien avec les ecrans, les reseaux sociaux, le post-COVID.</span>
+        <span class="en-inline">Explosion of anxiety and depression among 15-25 year olds. Link to screens, social media, post-COVID.</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Les reseaux sociaux sont-ils responsables de la crise de sante mentale ?</li>
+          <li class="fr">Faut-il interdire les smartphones aux mineurs ?</li>
+          <li class="fr">Comment gerez-vous votre propre sante mentale en tant qu'etudiant ?</li>
+          <li class="en">Are social media responsible for the mental health crisis?</li>
+          <li class="en">Should smartphones be banned for minors?</li>
+          <li class="en">How do you manage your own mental health as a student?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 5 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-health topic-tag">
+        <span class="fr-inline">Sante</span>
+        <span class="en-inline">Health</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Resistance aux antibiotiques</span>
+        <span class="en-inline">Antimicrobial resistance</span>
+      </h4>
+      <p>
+        <span class="fr-inline">L'OMS la considere comme l'une des plus grandes menaces pour la sante mondiale. D'ici 2050 : plus de morts que le cancer.</span>
+        <span class="en-inline">WHO considers it one of the greatest threats to global health. By 2050: more deaths than cancer.</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Un patient insiste pour des antibiotiques alors que c'est viral. Que faites-vous ?</li>
+          <li class="fr">Les agriculteurs utilisent massivement des antibiotiques. Qui est responsable ?</li>
+          <li class="en">A patient insists on antibiotics when it's viral. What do you do?</li>
+          <li class="en">Farmers use antibiotics massively. Who's responsible?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 6 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-society topic-tag">
+        <span class="fr-inline">Societe</span>
+        <span class="en-inline">Society</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Inegalites d'acces aux soins</span>
+        <span class="en-inline">Healthcare access inequalities</span>
+      </h4>
+      <p>
+        <span class="fr-inline">Renoncement aux soins pour raisons financieres, depassements d'honoraires, fracture numerique et telemedecine.</span>
+        <span class="en-inline">Foregoing care for financial reasons, fee overruns, digital divide and telemedicine.</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">La sante est-elle un droit ou un privilege ?</li>
+          <li class="fr">Les depassements d'honoraires sont-ils justifiables ?</li>
+          <li class="en">Is health a right or a privilege?</li>
+          <li class="en">Are fee overruns justifiable?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 7 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-health topic-tag">
+        <span class="fr-inline">Sante</span>
+        <span class="en-inline">Health</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Burn-out des soignants</span>
+        <span class="en-inline">Healthcare worker burnout</span>
+      </h4>
+      <p>
+        <span class="fr-inline">Post-COVID, departs massifs de l'hopital, manque de personnel chronique. Le systeme tient-il encore ?</span>
+        <span class="en-inline">Post-COVID, massive hospital departures, chronic understaffing. Is the system still holding?</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Un medecin en burn-out peut-il encore soigner correctement ?</li>
+          <li class="fr">Que feriez-vous si vous sentiez vos limites atteintes pendant votre carriere ?</li>
+          <li class="en">Can a burnt-out doctor still provide proper care?</li>
+          <li class="en">What would you do if you felt you'd reached your limits during your career?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 8 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-society topic-tag">
+        <span class="fr-inline">Societe</span>
+        <span class="en-inline">Society</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Climat et sante</span>
+        <span class="en-inline">Climate and health</span>
+      </h4>
+      <p>
+        <span class="fr-inline">Canicules, nouvelles maladies tropicales en Europe, pollution. Le medecin de demain devra aussi etre un medecin du climat.</span>
+        <span class="en-inline">Heatwaves, new tropical diseases in Europe, pollution. Tomorrow's doctor must also be a climate doctor.</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Le systeme de sante doit-il se transformer pour le changement climatique ?</li>
+          <li class="fr">Un medecin a-t-il un devoir d'engagement ecologique ?</li>
+          <li class="en">Should the healthcare system transform for climate change?</li>
+          <li class="en">Does a doctor have a duty of ecological engagement?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 9 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-tech topic-tag">Tech / Bioethique</div>
+      <h4>
+        <span class="fr-inline">CRISPR et selection genetique</span>
+        <span class="en-inline">CRISPR and genetic selection</span>
+      </h4>
+      <p>
+        <span class="fr-inline">On peut modifier l'ADN d'embryons. Guerir les maladies genetiques ou creer des "bebes sur mesure" ?</span>
+        <span class="en-inline">We can edit embryo DNA. Curing genetic diseases or creating "designer babies"?</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Ou tracer la ligne entre therapeutique et amelioration ?</li>
+          <li class="fr">Les parents devraient-ils pouvoir choisir les traits de leur enfant ?</li>
+          <li class="en">Where to draw the line between therapeutic and enhancement?</li>
+          <li class="en">Should parents be able to choose their child's traits?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 10 -->
+    <div class="topic-card" onclick="this.classList.toggle('open')">
+      <div class="tag-society topic-tag">
+        <span class="fr-inline">Societe</span>
+        <span class="en-inline">Society</span>
+      </div>
+      <h4>
+        <span class="fr-inline">Alimentation ultra-transformee</span>
+        <span class="en-inline">Ultra-processed food</span>
+      </h4>
+      <p>
+        <span class="fr-inline">Nutri-Score, lobbying de l'industrie, obesite en hausse. Responsabilite individuelle vs. responsabilite collective.</span>
+        <span class="en-inline">Nutri-Score, industry lobbying, rising obesity. Individual vs. collective responsibility.</span>
+      </p>
+      <div class="topic-questions">
+        <ul style="padding-left: 18px;">
+          <li class="fr">Faut-il taxer la malbouffe comme le tabac ?</li>
+          <li class="fr">L'obesite est-elle une maladie ou un choix de vie ?</li>
+          <li class="en">Should junk food be taxed like tobacco?</li>
+          <li class="en">Is obesity a disease or a lifestyle choice?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 7. LE JOUR J ========== -->
+<section id="jourj" class="fade-in">
+  <h2>
+    <span class="fr-inline">Le <span>jour J</span></span>
+    <span class="en-inline"><span>D-Day</span> tips</span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">Les petits details qui font la difference quand tu es devant le jury.</span>
+    <span class="en-inline">The small details that make the difference when facing the jury.</span>
+  </p>
+
+  <div class="tip-grid">
+    <div class="card">
+      <h3>
+        <span class="fr-inline">Avant de parler</span>
+        <span class="en-inline">Before speaking</span>
+      </h3>
+      <ul>
+        <li class="fr">Salue le jury poliment en entrant. Air confiant, souriant.</li>
+        <li class="fr">Regarde-les dans les yeux — pas de regard fuyant.</li>
+        <li class="fr">Assieds-toi ou reste debout — au choix. Choisis ce qui te met a l'aise.</li>
+        <li class="fr">Attends que le jury t'invite a commencer.</li>
+        <li class="en">Greet the jury politely when entering. Confident air, smiling.</li>
+        <li class="en">Look them in the eyes — no evasive gaze.</li>
+        <li class="en">Sit or stand — your choice. Choose what makes you comfortable.</li>
+        <li class="en">Wait for the jury to invite you to begin.</li>
+      </ul>
+    </div>
+
+    <div class="card card-coral">
+      <h3>
+        <span class="fr-inline">Pendant la presentation</span>
+        <span class="en-inline">During presentation</span>
+      </h3>
+      <ul>
+        <li class="fr">Tu PEUX jeter un oeil a tes notes — c'est normal et accepte.</li>
+        <li class="fr">Tu PEUX citer le document (page, paragraphe). Ca implique le jury.</li>
+        <li class="fr">Surveille le temps — apporte ta montre (non connectee).</li>
+        <li class="fr">Si tu depasses 3 min, le jury te coupera. Prevois une conclusion rapide en reserve.</li>
+        <li class="en">You CAN glance at your notes — it's normal and accepted.</li>
+        <li class="en">You CAN cite the document (page, paragraph). It engages the jury.</li>
+        <li class="en">Watch the time — bring your watch (not a smartwatch).</li>
+        <li class="en">If you exceed 3 min, the jury will cut you off. Have a quick backup conclusion.</li>
+      </ul>
+    </div>
+
+    <div class="card card-teal">
+      <h3>
+        <span class="fr-inline">Pendant les questions</span>
+        <span class="en-inline">During Q&A</span>
+      </h3>
+      <ul>
+        <li class="fr">Laisse-les finir leur question. Ne coupe pas.</li>
+        <li class="fr">Prends un temps de reflexion avant de repondre — c'est adapte.</li>
+        <li class="fr">"Je ne sais pas" > inventer. Reste confiant et enchaine.</li>
+        <li class="fr">Sois curieux : si tu ne connais pas un terme, decompose-le (etymologie).</li>
+        <li class="fr">Tu peux changer d'avis — c'est meme positif si tu expliques pourquoi.</li>
+        <li class="en">Let them finish their question. Don't interrupt.</li>
+        <li class="en">Take a moment to think before answering — it's appropriate.</li>
+        <li class="en">"I don't know" > making things up. Stay confident and move on.</li>
+        <li class="en">Be curious: if you don't know a term, break it down (etymology).</li>
+        <li class="en">You can change your mind — it's even positive if you explain why.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 20px;">
+    <h3>
+      <span class="fr-inline">Le message a retenir</span>
+      <span class="en-inline">The takeaway</span>
+    </h3>
+    <p style="font-size: 1.1rem;">
+      <span class="fr-inline">Le jury veut repondre a 3 questions : <strong>Sa reflexion est-elle justifiee ? Est-il capable de se remettre en question ? Ferait-il un bon professionnel de sante ?</strong></span>
+      <span class="en-inline">The jury wants to answer 3 questions: <strong>Is their reasoning justified? Can they question themselves? Would they make a good healthcare professional?</strong></span>
+    </p>
+  </div>
+</section>
+
+<!-- ========== 8. TRAINING MODE ========== -->
+<section id="training" class="fade-in">
+  <h2>
+    <span class="fr-inline">Mode <span>entrainement</span></span>
+    <span class="en-inline">Training <span>mode</span></span>
+  </h2>
+  <p class="section-sub">
+    <span class="fr-inline">Chronometre, checklist et ressources. Entraine-toi dans les conditions reelles.</span>
+    <span class="en-inline">Timer, checklist and resources. Practice in real conditions.</span>
+  </p>
+
+  <!-- Timer -->
+  <div class="timer-section">
+    <div class="timer-tabs">
+      <button class="timer-tab active" onclick="selectTimer('complex', this)">
+        <span class="fr-inline">Problematique</span>
+        <span class="en-inline">Complex</span>
+      </button>
+      <button class="timer-tab" onclick="selectTimer('document', this)">
+        <span class="fr-inline">Document</span>
+        <span class="en-inline">Document</span>
+      </button>
+    </div>
+    <div class="timer-phase" id="timerPhase">
+      <span class="fr-inline">Pret ? Lance le chrono</span>
+      <span class="en-inline">Ready? Start the timer</span>
+    </div>
+    <div class="timer-display" id="timerDisplay">02:00</div>
+    <div class="timer-progress" id="timerProgress">
+      <div class="progress-segment" style="width: 60px;" id="seg1"></div>
+      <div class="progress-segment" style="width: 90px;" id="seg2"></div>
+      <div class="progress-segment" style="width: 210px;" id="seg3"></div>
+    </div>
+    <div class="timer-controls">
+      <button class="timer-btn btn-start" id="btnStart" onclick="toggleTimer()">
+        <span class="fr-inline">Demarrer</span>
+        <span class="en-inline">Start</span>
+      </button>
+      <button class="timer-btn btn-reset" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <h3 style="margin: 40px 0 10px;">
+    <span class="fr-inline">Checklist d'entrainement</span>
+    <span class="en-inline">Training checklist</span>
+  </h3>
+  <ul class="checklist" id="checklist">
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">S'entrainer avec des sujets varies (au moins 5 differents)</span>
+        <span class="en-inline">Practice with varied topics (at least 5 different ones)</span>
+      </span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">Se filmer ou s'enregistrer pour reperer tics et gestes parasites</span>
+        <span class="en-inline">Film or record yourself to spot verbal tics and parasitic gestures</span>
+      </span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">Presenter devant des personnes differentes (amis, famille, inconnus)</span>
+        <span class="en-inline">Present in front of different people (friends, family, strangers)</span>
+      </span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">TOUJOURS se chronometrer — respecter les 2+3+7 ou 30+3+7</span>
+        <span class="en-inline">ALWAYS time yourself — respect the 2+3+7 or 30+3+7</span>
+      </span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">Lire des articles d'actualite chaque jour (15 min suffisent)</span>
+        <span class="en-inline">Read news articles daily (15 min is enough)</span>
+      </span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">Pratiquer les 6 blueprints au moins une fois chacun</span>
+        <span class="en-inline">Practice all 6 blueprints at least once each</span>
+      </span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">Faire un oral blanc complet dans les conditions reelles</span>
+        <span class="en-inline">Do a full mock oral in real conditions</span>
+      </span>
+    </li>
+    <li onclick="this.classList.toggle('checked')">
+      <span class="check-box">&#10003;</span>
+      <span>
+        <span class="fr-inline">Revoir les sujets brulants et preparer 2-3 arguments pour chacun</span>
+        <span class="en-inline">Review hot topics and prepare 2-3 arguments for each</span>
+      </span>
+    </li>
+  </ul>
+
+  <!-- Resources -->
+  <h3 style="margin: 40px 0 10px;">
+    <span class="fr-inline">Ressources</span>
+    <span class="en-inline">Resources</span>
+  </h3>
+  <div class="resource-links">
+    <div class="resource-link">
+      PubMed
+      <span>
+        <span class="fr-inline">Articles scientifiques</span>
+        <span class="en-inline">Scientific articles</span>
+      </span>
+    </div>
+    <div class="resource-link">
+      INSERM
+      <span>
+        <span class="fr-inline">Recherche medicale francaise</span>
+        <span class="en-inline">French medical research</span>
+      </span>
+    </div>
+    <div class="resource-link">
+      Le Monde
+      <span>
+        <span class="fr-inline">Actualite generale</span>
+        <span class="en-inline">General news</span>
+      </span>
+    </div>
+    <div class="resource-link">
+      Futura Sciences
+      <span>
+        <span class="fr-inline">Vulgarisation scientifique</span>
+        <span class="en-inline">Science popularization</span>
+      </span>
+    </div>
+    <div class="resource-link">
+      The Conversation
+      <span>
+        <span class="fr-inline">Analyses d'experts</span>
+        <span class="en-inline">Expert analyses</span>
+      </span>
+    </div>
+    <div class="resource-link">
+      France Culture
+      <span>
+        <span class="fr-inline">Podcasts sante & societe</span>
+        <span class="en-inline">Health & society podcasts</span>
+      </span>
+    </div>
+    <div class="resource-link">
+      Science Direct
+      <span>
+        <span class="fr-inline">Via compte UBO</span>
+        <span class="en-inline">Via UBO account</span>
+      </span>
+    </div>
+    <div class="resource-link">
+      Hugo Decrypte
+      <span>
+        <span class="fr-inline">Actu rapide & accessible</span>
+        <span class="en-inline">Quick & accessible news</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>
+    <span class="fr-inline">Guide de preparation aux oraux PASS / L.AS — 2025-2026</span>
+    <span class="en-inline">PASS / L.AS Oral Exam Prep Guide — 2025-2026</span>
+  </p>
+  <p style="margin-top: 4px;">
+    <span class="fr-inline">Base sur le livret du Tutorat Sante Brestois + discussions complementaires</span>
+    <span class="en-inline">Based on the Tutorat Sante Brestois booklet + complementary discussions</span>
+  </p>
+</footer>
+
+<script>
+  // Language toggle
+  function setLang(lang) {
+    document.body.classList.toggle('en', lang === 'en');
+    document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Side nav active state
+  const sections = document.querySelectorAll('section, header');
+  const navLinks = document.querySelectorAll('.side-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 200;
+      if (window.scrollY >= top) current = section.id;
+    });
+    navLinks.forEach((link, i) => {
+      const ids = ['hero','overview','jury','blueprints','epreuve1','epreuve2','topics','jourj','training'];
+      link.classList.toggle('active', ids[i] === current);
+    });
+  });
+
+  // Timer
+  let timerMode = 'complex';
+  const phases = {
+    complex: [
+      { name: { fr: 'Reflexion', en: 'Reflection' }, seconds: 120 },
+      { name: { fr: 'Presentation', en: 'Presentation' }, seconds: 180 },
+      { name: { fr: 'Discussion', en: 'Discussion' }, seconds: 420 }
+    ],
+    document: [
+      { name: { fr: 'Preparation', en: 'Preparation' }, seconds: 1800 },
+      { name: { fr: 'Presentation', en: 'Presentation' }, seconds: 180 },
+      { name: { fr: 'Questions', en: 'Questions' }, seconds: 420 }
+    ]
+  };
+  let currentPhase = 0;
+  let timeLeft = 120;
+  let timerInterval = null;
+  let running = false;
+
+  function selectTimer(mode, btn) {
+    timerMode = mode;
+    document.querySelectorAll('.timer-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    resetTimer();
+  }
+
+  function updateDisplay() {
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    document.getElementById('timerDisplay').textContent =
+      String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+
+    const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+    const phase = phases[timerMode][currentPhase];
+    if (phase) {
+      document.getElementById('timerPhase').textContent = phase.name[lang];
+    }
+
+    // Progress segments
+    for (let i = 0; i < 3; i++) {
+      const seg = document.getElementById('seg' + (i + 1));
+      if (i < currentPhase) seg.className = 'progress-segment done';
+      else if (i === currentPhase && running) seg.className = 'progress-segment active';
+      else seg.className = 'progress-segment';
+    }
+
+    // Update segment widths based on mode
+    const totalSecs = phases[timerMode].reduce((a, p) => a + p.seconds, 0);
+    phases[timerMode].forEach((p, i) => {
+      const seg = document.getElementById('seg' + (i + 1));
+      seg.style.width = Math.max(40, (p.seconds / totalSecs) * 360) + 'px';
+    });
+  }
+
+  function toggleTimer() {
+    if (running) {
+      clearInterval(timerInterval);
+      running = false;
+      const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+      document.getElementById('btnStart').innerHTML =
+        '<span class="fr-inline">' + (lang === 'fr' ? 'Reprendre' : 'Reprendre') + '</span><span class="en-inline">' + (lang === 'en' ? 'Resume' : 'Resume') + '</span>';
+      // Fix visibility after innerHTML replacement
+      if (document.body.classList.contains('en')) {
+        document.getElementById('btnStart').querySelector('.fr-inline').style.display = 'none';
+        document.getElementById('btnStart').querySelector('.en-inline').style.display = 'inline';
+      }
+    } else {
+      running = true;
+      document.getElementById('btnStart').textContent = 'Pause';
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) {
+          // Play beep
+          try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.value = 800;
+            gain.gain.value = 0.3;
+            osc.start();
+            setTimeout(() => { osc.stop(); ctx.close(); }, 300);
+          } catch(e) {}
+
+          currentPhase++;
+          if (currentPhase >= phases[timerMode].length) {
+            clearInterval(timerInterval);
+            running = false;
+            const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+            document.getElementById('timerPhase').textContent = lang === 'fr' ? 'Termine !' : 'Done!';
+            document.getElementById('timerDisplay').textContent = '00:00';
+            document.getElementById('btnStart').textContent = lang === 'fr' ? 'Termine' : 'Done';
+            document.getElementById('btnStart').disabled = true;
+            for (let i = 0; i < 3; i++) {
+              document.getElementById('seg' + (i + 1)).className = 'progress-segment done';
+            }
+            return;
+          }
+          timeLeft = phases[timerMode][currentPhase].seconds;
+        }
+        updateDisplay();
+      }, 1000);
+    }
+    updateDisplay();
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    running = false;
+    currentPhase = 0;
+    timeLeft = phases[timerMode][0].seconds;
+    document.getElementById('btnStart').disabled = false;
+    const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+    document.getElementById('btnStart').textContent = lang === 'fr' ? 'Demarrer' : 'Start';
+    document.getElementById('timerPhase').textContent = lang === 'fr' ? 'Pret ? Lance le chrono' : 'Ready? Start the timer';
+    updateDisplay();
+  }
+
+  // Init
+  updateDisplay();
+</script>
+
+</body>
+</html>
