@@ -74,20 +74,15 @@
     color: var(--cream);
   }
 
-  /* Hide/show language */
-  [data-en] { display: none; }
-  body.en [data-en] { display: initial; }
-  body.en [data-fr] { display: none; }
-
-  .fr { display: block; }
+  /* Hide/show language — use .lang-en on body to avoid hiding body itself */
+  .lang-en .fr { display: none !important; }
+  .lang-en .en { display: block; }
   .en { display: none; }
-  body.en .fr { display: none; }
-  body.en .en { display: block; }
 
   .fr-inline { display: inline; }
   .en-inline { display: none; }
-  body.en .fr-inline { display: none; }
-  body.en .en-inline { display: inline; }
+  .lang-en .fr-inline { display: none !important; }
+  .lang-en .en-inline { display: inline; }
 
   /* Hero */
   .hero {
@@ -1052,8 +1047,8 @@
       <span class="en-inline">Essential reminder</span>
     </h3>
     <p>
-      <span class="fr-inline">Les oraux sont <strong>anonymes</strong>. Tu es cache derriere un rideau pendant la preparation. Il n'y a <strong>pas de bonne reponse</strong> — le jury veut voir ta reflexion, ta spontaneite, et ta capacite a justifier tes choix. Reste toi-meme, ne mens pas.</span>
-      <span class="en-inline">The orals are <strong>anonymous</strong>. You're hidden behind a curtain during preparation. There is <strong>no right answer</strong> — the jury wants to see your reasoning, your spontaneity, and your ability to justify your choices. Be yourself, don't lie.</span>
+      <span class="fr-inline">Les oraux sont <strong>anonymes</strong> (numero d'anonymat, pas de nom). Pour la problematique complexe, un rideau te separe du jury pendant les 2 min de reflexion — ensuite tu es face a eux. Il n'y a <strong>pas de bonne reponse</strong> — le jury veut voir ta reflexion, ta spontaneite, et ta capacite a justifier tes choix. Reste toi-meme, ne mens pas.</span>
+      <span class="en-inline">The orals are <strong>anonymous</strong> (anonymization number, no name). For the complex scenario, a curtain separates you from the jury during the 2 min of reflection — then you face them directly. There is <strong>no right answer</strong> — the jury wants to see your reasoning, your spontaneity, and your ability to justify your choices. Be yourself, don't lie.</span>
     </p>
   </div>
 </section>
@@ -1093,8 +1088,8 @@
         <span class="en-inline">The observer</span>
       </strong>
       <p style="font-size:0.85rem; margin-top:8px;">
-        <span class="fr-inline">Questions neutres, observe ton langage corporel et ta coherence globale.</span>
-        <span class="en-inline">Neutral questions, observes your body language and overall coherence.</span>
+        <span class="fr-inline">Questions neutres, observe ta coherence globale et comment tu reagis sous pression.</span>
+        <span class="en-inline">Neutral questions, observes your overall coherence and how you react under pressure.</span>
       </p>
       <div class="jury-role">
         <span class="fr-inline">Evalue l'ensemble</span>
@@ -1588,16 +1583,16 @@
         <span class="en-inline">The jury presents <strong>2 topics</strong>. You choose one in a few seconds.</span>
       </li>
       <li style="margin-bottom: 8px;">
-        <span class="fr-inline">Tu t'installes face a un rideau (le jury ne te voit pas, tu ne les vois pas). Feuilles de brouillon disponibles.</span>
-        <span class="en-inline">You sit facing a curtain (the jury can't see you, you can't see them). Scratch paper available.</span>
+        <span class="fr-inline">Tu t'installes sur une chaise avec le sujet et des feuilles de brouillon. Un rideau te separe du jury pendant la preparation uniquement.</span>
+        <span class="en-inline">You sit on a chair with the topic and scratch paper. A curtain separates you from the jury during preparation only.</span>
       </li>
       <li style="margin-bottom: 8px;">
-        <span class="fr-inline"><strong>2 minutes</strong> de reflexion silencieuse. Mots cles sur le brouillon.</span>
-        <span class="en-inline"><strong>2 minutes</strong> of silent reflection. Key words on scratch paper.</span>
+        <span class="fr-inline"><strong>2 minutes</strong> de reflexion derriere le rideau. Mots cles sur le brouillon.</span>
+        <span class="en-inline"><strong>2 minutes</strong> of reflection behind the curtain. Key words on scratch paper.</span>
       </li>
       <li style="margin-bottom: 8px;">
-        <span class="fr-inline">Tu te positionnes face au jury. <strong>3 minutes</strong> de presentation : analyse + reaction.</span>
-        <span class="en-inline">You face the jury. <strong>3 minutes</strong> of presentation: analysis + reaction.</span>
+        <span class="fr-inline">Le rideau tombe. Tu te positionnes <strong>face au jury</strong> (debout ou assis, au choix). <strong>3 minutes</strong> de presentation : analyse + reaction.</span>
+        <span class="en-inline">The curtain goes. You position yourself <strong>facing the jury</strong> (standing or sitting, your choice). <strong>3 minutes</strong> of presentation: analysis + reaction.</span>
       </li>
       <li>
         <span class="fr-inline"><strong>7 minutes</strong> de discussion / questions avec le jury.</span>
@@ -2331,7 +2326,7 @@
 <script>
   // Language toggle
   function setLang(lang) {
-    document.body.classList.toggle('en', lang === 'en');
+    document.body.classList.toggle('lang-en', lang === 'en');
     document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   }
@@ -2394,7 +2389,7 @@
     document.getElementById('timerDisplay').textContent =
       String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
 
-    const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+    const lang = document.body.classList.contains('lang-en') ? 'en' : 'fr';
     const phase = phases[timerMode][currentPhase];
     if (phase) {
       document.getElementById('timerPhase').textContent = phase.name[lang];
@@ -2420,11 +2415,11 @@
     if (running) {
       clearInterval(timerInterval);
       running = false;
-      const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+      const lang = document.body.classList.contains('lang-en') ? 'en' : 'fr';
       document.getElementById('btnStart').innerHTML =
         '<span class="fr-inline">' + (lang === 'fr' ? 'Reprendre' : 'Reprendre') + '</span><span class="en-inline">' + (lang === 'en' ? 'Resume' : 'Resume') + '</span>';
       // Fix visibility after innerHTML replacement
-      if (document.body.classList.contains('en')) {
+      if (document.body.classList.contains('lang-en')) {
         document.getElementById('btnStart').querySelector('.fr-inline').style.display = 'none';
         document.getElementById('btnStart').querySelector('.en-inline').style.display = 'inline';
       }
@@ -2451,7 +2446,7 @@
           if (currentPhase >= phases[timerMode].length) {
             clearInterval(timerInterval);
             running = false;
-            const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+            const lang = document.body.classList.contains('lang-en') ? 'en' : 'fr';
             document.getElementById('timerPhase').textContent = lang === 'fr' ? 'Termine !' : 'Done!';
             document.getElementById('timerDisplay').textContent = '00:00';
             document.getElementById('btnStart').textContent = lang === 'fr' ? 'Termine' : 'Done';
@@ -2475,7 +2470,7 @@
     currentPhase = 0;
     timeLeft = phases[timerMode][0].seconds;
     document.getElementById('btnStart').disabled = false;
-    const lang = document.body.classList.contains('en') ? 'en' : 'fr';
+    const lang = document.body.classList.contains('lang-en') ? 'en' : 'fr';
     document.getElementById('btnStart').textContent = lang === 'fr' ? 'Demarrer' : 'Start';
     document.getElementById('timerPhase').textContent = lang === 'fr' ? 'Pret ? Lance le chrono' : 'Ready? Start the timer';
     updateDisplay();
